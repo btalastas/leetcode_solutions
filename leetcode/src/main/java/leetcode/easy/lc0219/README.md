@@ -23,6 +23,8 @@ Input: nums = [1,2,3,1,2,3], k = 2
 Output: false
 ```
 
+Submission: *Accepted*
+
 ## Notes
 
 - use sliding window technique instead of nested for loops
