@@ -3,7 +3,6 @@ package leetcode.easy.lc0219;
 public class Lc0219 {
 
     public boolean containsNearbyDuplicate(int[] nums, int k) {
-        int index = k;
 
         if (k == 0) {
             return false;
