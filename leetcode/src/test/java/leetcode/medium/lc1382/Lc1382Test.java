@@ -35,7 +35,7 @@ public class Lc1382Test {
         return insert(arr, 0, arr.length - 1);
     }
 
-    private final Lc1382 solution = new Lc1382();
+    // private final Lc1382 solution = new Lc1382();
 
     @Test
     void balanceBSTExample1() {
