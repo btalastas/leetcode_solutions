@@ -2,624 +2,567 @@
   "problems": [
     {
       "id": "lc0001",
-      "title": "LC0001",
+      "title": "Two sum",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0001 solution from Java class Lc0001",
+      "summary": "Given an array of integers and a target, return the indices of the two numbers that add up to the target.",
       "methods": [
         {
-          "name": "twoSum",
           "code": "public int[] twoSum(int[] nums, int target) {\n        HashMap<Integer, Integer> map = new HashMap<>();\n        int[] array = new int[2];\n\n        for (int i = 0; i < nums.length; i++) {\n            map.put(nums[i], i);\n        }\n\n        for (int i = 0; i < nums.length; i++) {\n            int difference = target - nums[i];\n\n            if (map.get(difference) != null && map.get(difference) != i) {\n                array[0] = i;\n                array[1] = map.get(difference);\n                break;\n            }\n        }\n\n        return array;\n\n    }"
         }
       ]
     },
     {
       "id": "lc0013",
-      "title": "LC0013",
+      "title": "Roman to Integer",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0013 solution from Java class Lc0013",
+      "summary": "Given a Roman numeral string, convert it to its integer value.",
       "methods": [
         {
-          "name": "romanToInt",
           "code": "public int romanToInt(String s) {\n        int value = 0;\n        char[] roman = s.toCharArray();\n        Map<Character, Integer> romanMap = Map.of(\n                'I', 1,\n                'V', 5,\n                'X', 10,\n                'L', 50,\n                'C', 100,\n                'D', 500,\n                'M', 1000);\n\n        for (int i = 0; i < roman.length; i++) {\n\n            // New Rule Switch\n            // switch (roman[i]) {\n            // case 'I' -> {\n            // if ((i + 1) < roman.length && roman[i + 1] == 'V') {\n            // value += 4;\n            // } else if ((i + 1) < roman.length && roman[i + 1] == 'X') {\n            // value += 9;\n            // }\n            // i = i + 1;\n            // }\n            // case 'X' -> {\n            // if ((i + 1) < roman.length && roman[i + 1] == 'L') {\n            // value += 40;\n            // } else if ((i + 1) < roman.length && roman[i + 1] == 'C') {\n            // value += 90;\n            // }\n            // i = i + 1;\n            // }\n            // case 'C' -> {\n            // if ((i + 1) < roman.length && roman[i + 1] == 'D') {\n            // value += 400;\n            // } else if ((i + 1) < roman.length && roman[i + 1] == 'M') {\n            // value += 900;\n            // }\n            // i = i + 1;\n            // }\n            // default -> value += romanMap.get(roman[i]);\n            // }\n\n            switch (roman[i]) {\n                case 'I':\n                    if ((i + 1) < roman.length && roman[i + 1] == 'V') {\n                        value += 4;\n                        i = i + 1;\n                    } else if ((i + 1) < roman.length && roman[i + 1] == 'X') {\n                        value += 9;\n                        i = i + 1;\n                    } else {\n                        value += romanMap.get(roman[i]);\n                    }\n                    break;\n                case 'X':\n                    if ((i + 1) < roman.length && roman[i + 1] == 'L') {\n                        value += 40;\n                        i = i + 1;\n                    } else if ((i + 1) < roman.length && roman[i + 1] == 'C') {\n                        value += 90;\n                        i = i + 1;\n                    } else {\n                        value += romanMap.get(roman[i]);\n                    }\n                    break;\n                case 'C':\n                    if ((i + 1) < roman.length && roman[i + 1] == 'D') {\n                        value += 400;\n                        i = i + 1;\n                    } else if ((i + 1) < roman.length && roman[i + 1] == 'M') {\n                        value += 900;\n                        i = i + 1;\n                    } else {\n                        value += romanMap.get(roman[i]);\n                    }\n\n                    break;\n                default:\n                    value += romanMap.get(roman[i]);\n                    break;\n            }\n\n        }\n\n        return value;\n    }"
         }
       ]
     },
     {
       "id": "lc0021",
-      "title": "LC0021",
+      "title": "Merge Two Sorted Lists",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0021 solution from Java class Lc0021",
+      "summary": "Given the heads of two sorted linked lists, merge them into one sorted linked list and return its head.",
       "methods": [
         {
-          "name": "mergeTwoLists",
           "code": "public ListNode mergeTwoLists(ListNode list1, ListNode list2) {\n        ListNode mergedList = new ListNode(-1);\n        ListNode dummy = mergedList;\n\n        while (list1 != null && list2 != null) {\n\n            if (list1.val <= list2.val) {\n                dummy.next = list1;\n                list1 = list1.next;\n            } else {\n                dummy.next = list2;\n                list2 = list2.next;\n            }\n\n            dummy = dummy.next;\n        }\n\n        // dummy.next = (list1 != null) ? list1 : list2;\n\n        if (list1 != null) {\n            dummy.next = list1;\n        } else {\n            dummy.next = list2;\n        }\n\n        return mergedList.next;\n\n    }"
         }
       ]
     },
     {
       "id": "lc0026",
-      "title": "LC0026",
+      "title": "Remove Duplicates from Sorted Array",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0026 solution from Java class Lc0026",
+      "summary": "Given a sorted array, remove duplicates in place and return the number of unique elements.",
       "methods": [
         {
-          "name": "removeDuplicates",
           "code": "public int removeDuplicates(int[] nums) {\n\n        /**\n         * walk through array if seen number is -1, assign seen number to the\n         * first number in array if seen number is == to current number, remove\n         * current number, increment k\n         */\n        if (nums.length == 0) {\n            return 0;\n        }\n        int i = 0;\n        for (int j = 1; j < nums.length; j++) {\n            if (nums[j] != nums[i]) {\n                i++;\n                nums[i] = nums[j];\n            }\n        }\n        return i + 1;\n    }"
         }
       ]
     },
     {
       "id": "lc0058",
-      "title": "LC0058",
+      "title": "Length of Last Word",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0058 solution from Java class Lc0058",
+      "summary": "Given a string of words and spaces, return the length of its last word.",
       "methods": [
         {
-          "name": "lengthOfLastWord",
           "code": "public int lengthOfLastWord(String s) {\n\n        int length;\n\n        String[] text = s.split(\"\\\\s+\");\n\n        length = text[text.length - 1].length();\n\n        return length;\n\n    }"
         }
       ]
     },
     {
       "id": "lc0066",
-      "title": "LC0066",
+      "title": "Plus One",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0066 solution from Java class Lc0066",
+      "summary": "Given a non-negative integer represented as an array of digits, add one and return the resulting digits.",
       "methods": [
         {
-          "name": "carryAddition",
           "code": "private int[] carryAddition(int[] digits) {\n        int[] carryArray;\n        int index = digits.length - 1;\n        boolean carry = true;\n\n        if (digits.length == 1) {\n            carryArray = new int[digits.length + 1];\n            carryArray[0] = 1;\n            carryArray[1] = 0;\n            return carryArray;\n        }\n        while (index >= 0 && carry) {\n\n            if (digits[index] == 9) {\n                digits[index] = 0;\n            } else {\n                digits[index]++;\n                carry = false;\n            }\n\n            index--;\n        }\n\n        if (digits[0] == 0) {\n            carryArray = new int[digits.length + 1];\n            carryArray[0] = 1;\n            carryArray[1] = 0;\n            System.arraycopy(digits, 1, carryArray, 2, carryArray.length - 2);\n            return carryArray;\n        }\n        carryArray = new int[digits.length];\n        System.arraycopy(digits, 0, carryArray, 0, digits.length);\n\n        return carryArray;\n\n    }"
         },
         {
-          "name": "plusOne",
           "code": "public int[] plusOne(int[] digits) {\n        int[] array;\n\n        if (digits[digits.length - 1] == 9) {\n            return carryAddition(digits);\n\n        }\n\n        digits[digits.length - 1]++;\n        array = digits;\n        return array;\n\n    }"
         }
       ]
     },
     {
       "id": "lc0171",
-      "title": "LC0171",
+      "title": "Excel Sheet Column Number",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0171 solution from Java class Lc0171",
+      "summary": "Given an Excel column title, return its corresponding column number.",
       "methods": [
         {
-          "name": "value",
           "code": "private int value(char letter) {\n        int value = 0;\n\n        switch (letter) {\n            case 'A' -> {\n                value = 1;\n            }\n            case 'B' -> {\n                value = 2;\n            }\n            case 'C' -> {\n                value = 3;\n            }\n            case 'D' -> {\n                value = 4;\n            }\n            case 'E' -> {\n                value = 5;\n            }\n            case 'F' -> {\n                value = 6;\n            }\n            case 'G' -> {\n                value = 7;\n            }\n            case 'H' -> {\n                value = 8;\n            }\n            case 'I' -> {\n                value = 9;\n            }\n            case 'J' -> {\n                value = 10;\n            }\n            case 'K' -> {\n                value = 11;\n            }\n            case 'L' -> {\n                value = 12;\n            }\n            case 'M' -> {\n                value = 13;\n            }\n            case 'N' -> {\n                value = 14;\n            }\n            case 'O' -> {\n                value = 15;\n            }\n            case 'P' -> {\n                value = 16;\n            }\n            case 'Q' -> {\n                value = 17;\n            }\n            case 'R' -> {\n                value = 18;\n            }\n            case 'S' -> {\n                value = 19;\n            }\n            case 'T' -> {\n                value = 20;\n            }\n            case 'U' -> {\n                value = 21;\n            }\n            case 'V' -> {\n                value = 22;\n            }\n            case 'W' -> {\n                value = 23;\n            }\n            case 'X' -> {\n                value = 24;\n            }\n            case 'Y' -> {\n                value = 25;\n            }\n            case 'Z' -> {\n                value = 26;\n            }\n        }\n\n        return value;\n    }"
         },
         {
-          "name": "titleToNumber",
           "code": "public int titleToNumber(String columnTitle) {\n        char[] columnTitleArray = columnTitle.toCharArray();\n        int number = 0;\n        int position = columnTitleArray.length - 1;\n        for (int i = 0; i < columnTitleArray.length; i++) {\n            number += value(columnTitleArray[i]) * (Math.pow(26, position));\n            position--;\n        }\n\n        return number;\n    }"
         }
       ]
     },
     {
       "id": "lc0217",
-      "title": "LC0217",
+      "title": "Contains Duplicates",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0217 solution from Java class Lc0217",
+      "summary": "Given an integer array, return whether any value appears at least twice.",
       "methods": [
         {
-          "name": "containsDuplicate",
           "code": "public boolean containsDuplicate(int[] nums) {\n        boolean containsDuplicate = false;\n        HashMap<Integer, Integer> duplicateMap = new HashMap<>();\n\n        for (int i = 0; i < nums.length; i++) {\n            if (duplicateMap.get(nums[i]) == null) {\n                duplicateMap.put(nums[i], 1);\n            } else {\n                containsDuplicate = true;\n            }\n        }\n\n        return containsDuplicate;\n    }"
         }
       ]
     },
     {
       "id": "lc0219",
-      "title": "LC0219",
+      "title": "Contains Duplicates II",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0219 solution from Java class Lc0219",
+      "summary": "Given an integer array and an integer k, return whether equal values appear within k indices of each other.",
       "methods": [
         {
-          "name": "containsNearbyDuplicate",
           "code": "public boolean containsNearbyDuplicate(int[] nums, int k) {\n\n        if (k == 0) {\n            return false;\n        } else if (nums.length == 2) {\n            if (nums[0] == nums[1]) {\n                return true;\n            }\n        } else {\n\n            for (int i = 0; i < nums.length - 1; i++) {\n                for (int j = i + 1; j < nums.length; j++) {\n                    if (nums[i] == nums[j] && Math.abs(i - j) <= k) {\n                        return true;\n                    } else if (Math.abs(i - j) > k) {\n                        break;\n                    }\n                }\n            }\n\n            // if (k > nums.length) {\n            // for (int i = 0; i < nums.length - 1;) {\n            // for (int j = i + 1; j < nums.length; j++) {\n            // if (nums[i] == nums[j]) {\n            // return true;\n            // }\n            // }\n            // }\n            // } else {\n            // for (int i = 0; i < nums.length - k; i++) {\n            // for (int j = i + 1; j <= index; j++) {\n            // if (nums[i] == nums[j]) {\n            // return true;\n            // }\n            // }\n            // index++;\n            // }\n            // }\n\n        }\n\n        return false;\n    }"
         }
       ]
     },
     {
       "id": "lc0268",
-      "title": "LC0268",
+      "title": "Missing Number",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0268 solution from Java class Lc0268",
+      "summary": "Given n distinct numbers in the range [0, n], return the missing number.",
       "methods": [
         {
-          "name": "missingNumber",
           "code": "public int missingNumber(int[] nums) {\n\n        int sum = nums.length * (nums.length + 1) / 2;\n        int actualSum = 0;\n        int missingNumber;\n\n        for (int i = 0; i < nums.length; i++) {\n            actualSum += nums[i];\n        }\n        missingNumber = sum - actualSum;\n        return missingNumber;\n    }"
         }
       ]
     },
     {
       "id": "lc0338",
-      "title": "LC0338",
+      "title": "Counting Bits",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0338 solution from Java class Lc0338",
+      "summary": "Given an integer n, return an array where each entry contains the number of 1 bits for every value from 0 to n.",
       "methods": [
         {
-          "name": "countBits",
           "code": "public int[] countBits(int n) {\n        // int[] array = new int[n + 1];\n\n        // for (int i = 0; i < array.length; i++) {\n        // int ones = 0;\n        // int num = i;\n        // while (num != 0) {\n        // if ((num & 1) == 1) {\n        // ones++;\n\n        // }\n        // num >>= 1;\n        // }\n        // array[i] = ones;\n        // }\n\n        // return array;\n\n        int[] ans = new int[n + 1];\n        for (int i = 1; i <= n; i++) {\n            ans[i] = ans[i >> 1] + (i & 1);\n        }\n        return ans;\n    }"
         }
       ]
     },
     {
       "id": "lc0404",
-      "title": "LC0404",
+      "title": "Sum of Left Leaves",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0404 solution from Java class Lc0404",
+      "summary": "Given the root of a binary tree, return the sum of all left leaf nodes.",
       "methods": [
         {
-          "name": "insert",
           "code": "public TreeNode insert(Integer[] node, int index) {\n        if (index >= node.length || node[index] == null) {\n            return null;\n        }\n\n        TreeNode root = new TreeNode(node[index]);\n        root.left = insert(node, 2 * index + 1);\n        root.right = insert(node, 2 * index + 2);\n        return root;\n    }"
         },
         {
-          "name": "buildBST",
           "code": "public TreeNode buildBST(Integer[] arr) {\n\n        return insert(arr, 0);\n    }"
         },
         {
-          "name": "getSum",
           "code": "private int getSum(TreeNode root) {\n        int sum = 0;\n\n        if (root == null) {\n            return 0;\n        }\n\n        if (root.left != null && root.left.left == null && root.left.right == null) {\n            sum += root.left.val;\n        }\n\n        sum += getSum(root.left);\n        sum += getSum(root.right);\n\n        return sum;\n    }"
         },
         {
-          "name": "sumOfLeftLeaves",
           "code": "public int sumOfLeftLeaves(TreeNode root) {\n        return getSum(root);\n    }"
         }
       ]
     },
     {
       "id": "lc0455",
-      "title": "LC0455",
+      "title": "Assign Cookies",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0455 solution from Java class Lc0455",
+      "summary": "Given children greed factors and cookie sizes, return the maximum number of children who can be satisfied.",
       "methods": [
         {
-          "name": "findContentChildren",
           "code": "public int findContentChildren(int[] g, int[] s) {\n\n        if (s.length == 0) {\n            return 0;\n        }\n        int counter = 0;\n        int[] childrenSorted = g;\n        int[] cookiesSorted = s;\n        Arrays.sort(childrenSorted);\n        Arrays.sort(cookiesSorted);\n        int childrenPointer = 0;\n        int cookiesPointer = 0;\n\n        while (cookiesPointer < cookiesSorted.length && childrenPointer < childrenSorted.length) {\n            System.out.println(\"children: \" + childrenSorted[childrenPointer]);\n            System.out.println(\"cookoes: \" + cookiesSorted[cookiesPointer]);\n\n            if (childrenSorted[childrenPointer] <= cookiesSorted[cookiesPointer]) {\n                counter++;\n                childrenPointer++;\n                cookiesPointer++;\n            } else {\n                cookiesPointer++;\n            }\n        }\n\n        return counter;\n    }"
         }
       ]
     },
     {
       "id": "lc0605",
-      "title": "LC0605",
+      "title": "Can Place Flowers",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0605 solution from Java class Lc0605",
+      "summary": "Given a flowerbed and a number n, return whether n new flowers can be planted without using adjacent plots.",
       "methods": [
         {
-          "name": "canPlaceFlowers",
           "code": "public boolean canPlaceFlowers(int[] flowerbed, int n) {\n\n        int counter = 0;\n\n        if (flowerbed.length == 1) {\n            if (flowerbed[0] == 0 && n == 1) {\n                return true;\n            } else if (flowerbed[0] == 0 && n == 0) {\n                return true;\n            } else if (flowerbed[0] == 1 && n != 0) {\n                return false;\n            }\n        }\n\n        for (int i = 0; i < flowerbed.length; i++) {\n\n            // left end\n            if (i == 0 && flowerbed[i] == 0 && flowerbed[i + 1] == 0) {\n                counter++;\n                flowerbed[i] = 1;\n            }\n\n            // right end\n            if (i == flowerbed.length - 1 && flowerbed[i] == 0 && flowerbed[i - 1] == 0) {\n                counter++;\n                flowerbed[i] = 1;\n            }\n\n            // middle\n            if (i != 0 && i != flowerbed.length - 1 && flowerbed[i] == 0 && flowerbed[i - 1] == 0\n                    && flowerbed[i + 1] == 0) {\n                counter++;\n                flowerbed[i] = 1;\n            }\n        }\n\n        if (counter < n) {\n            return false;\n        }\n\n        return counter >= n;\n    }"
         }
       ]
     },
     {
       "id": "lc0682",
-      "title": "LC0682",
+      "title": "Baseball Game",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0682 solution from Java class Lc0682",
+      "summary": "Given a list of baseball scoring operations, return the final total score after applying the rules.",
       "methods": [
         {
-          "name": "calPoints",
           "code": "public int calPoints(String[] operations) {\n        Stack<Integer> stack = new Stack<>();\n\n        // for (int i = 0; i < operations.length; i++) {\n\n        // // integer\n        // try {\n        // int num = Integer.parseInt(operations[i]);\n\n        // stack.push(num);\n        // } catch (NumberFormatException e) {\n\n        // // \"+\"\n\n        // if (String.valueOf(operations[i]) == \"+\") {\n        // int num1 = stack.pop();\n        // int num2 = stack.pop();\n        // int sum = num1 + num2;\n\n        // stack.push(num1);\n        // stack.push(num2);\n        // stack.push(sum);\n        // }\n\n        // // \"C\"\n\n        // if (String.valueOf(operations[i]) == \"C\") {\n        // stack.pop();\n        // }\n        // // \"D\"\n\n        // if (String.valueOf(operations[i]) == \"D\") {\n        // int num = stack.peek() * 2;\n        // stack.push(num);\n        // }\n        // }\n\n        // }\n        // int sum = 0;\n        // while (!stack.empty()) {\n        // sum += stack.pop();\n        // }\n\n        // return sum;\n\n        for (String op : operations) {\n            if (op.equals(\"+\")) {\n                int top = stack.pop();\n                int newtop = top + stack.peek();\n                stack.push(top);\n                stack.push(newtop);\n            } else if (op.equals(\"C\")) {\n                stack.pop();\n            } else if (op.equals(\"D\")) {\n                stack.push(2 * stack.peek());\n            } else {\n                stack.push(Integer.valueOf(op));\n            }\n        }\n\n        int ans = 0;\n        for (int score : stack)\n            ans += score;\n        return ans;\n    }"
         }
       ]
     },
     {
       "id": "lc0693",
-      "title": "LC0693",
+      "title": "Binary Number with Alternating Bits",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0693 solution from Java class Lc0693",
+      "summary": "Given a positive integer, return whether its binary representation has alternating bits.",
       "methods": [
         {
-          "name": "hasAlternatingBits",
           "code": "public boolean hasAlternatingBits(int n) {\n\n        int temp = n & 1;\n        n >>= 1;\n\n        while (n != 0) {\n            int bit = n & 1;\n            if (temp == bit) {\n                return false;\n            }\n            temp = bit;\n            n >>= 1;\n        }\n\n        return true;\n    }"
         }
       ]
     },
     {
       "id": "lc0860",
-      "title": "LC0860",
+      "title": "Lemonade Change",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC0860 solution from Java class Lc0860",
+      "summary": "Given the sequence of bills customers pay with, return whether you can provide correct change to every customer.",
       "methods": [
         {
-          "name": "lemonadeChange",
           "code": "public boolean lemonadeChange(int[] bills) {\n\n        int fiveBills = 0;\n        int tenBills = 0;\n\n        if (bills[0] != 5) {\n            return false;\n        }\n\n        for (int i = 0; i < bills.length; i++) {\n            if (bills[i] == 5) {\n                fiveBills++;\n            } else if (bills[i] == 10) {\n                tenBills++;\n                fiveBills--;\n\n                if (fiveBills < 0) {\n                    return false;\n                }\n            } else {\n                if (tenBills == 0) {\n                    fiveBills -= 3;\n                } else {\n                    tenBills--;\n                    fiveBills--;\n                }\n\n                if (tenBills < 0 || fiveBills < 0) {\n                    return false;\n                }\n            }\n        }\n\n        return true;\n    }"
         }
       ]
     },
     {
       "id": "lc1281",
-      "title": "LC1281",
+      "title": "Subtract the Prodcut and Sum of Digits of an Integer",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1281 solution from Java class Lc1281",
+      "summary": "Given an integer n, return the product of its digits minus the sum of its digits.",
       "methods": [
         {
-          "name": "subtractProductAndSum",
           "code": "public int subtractProductAndSum(int n) {\n\n        int length = (int) (Math.log10(n) + 1);\n\n        int[] intArray = new int[length];\n\n        int difference = 0;\n\n        int counter = 0;\n\n        while (n != 0) {\n\n            int lastDigit = n % 10;\n\n            intArray[counter] = lastDigit;\n\n            counter++;\n\n            n /= 10;\n\n        }\n\n        int product = 1;\n\n        int sum = 0;\n\n        for (int i = 0; i < intArray.length; i++) {\n\n            product *= intArray[i];\n\n            sum += intArray[i];\n\n            if (i == intArray.length - 1) {\n\n                difference = product - sum;\n\n            }\n\n        }\n\n        return difference;\n\n    }"
         }
       ]
     },
     {
       "id": "lc1295",
-      "title": "LC1295",
+      "title": "Find Numbers with Even Number of Digits",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1295 solution from Java class Lc1295",
+      "summary": "Given an array of integers, return how many numbers contain an even number of digits.",
       "methods": [
         {
-          "name": "findNumbers",
           "code": "public int findNumbers(int[] nums) {\n\n        int counter = 0;\n\n        int total = 0;\n\n        for (int i = 0; i < nums.length; i++) {\n\n            while (nums[i] != 0) {\n\n                nums[i] /= 10;\n\n                ++counter;\n\n            }\n\n            if (counter % 2 == 0) {\n\n                total++;\n\n            }\n\n            counter = 0;\n\n        }\n\n        return total;\n\n    }"
         }
       ]
     },
     {
       "id": "lc1431",
-      "title": "LC1431",
+      "title": "Kids With the Greatest Number of Candies",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1431 solution from Java class Lc1431",
+      "summary": "Given each child's candies and some extra candies, return which children could have the greatest number of candies.",
       "methods": [
         {
-          "name": "kidsWithCandies",
           "code": "public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {\n        List<Boolean> greatestCandylBooleans = new ArrayList<>();\n        int maxAmount = 0;\n\n        for (int i = 0; i < candies.length; i++) {\n            if (candies[i] >= maxAmount) {\n                maxAmount = candies[i];\n            }\n        }\n\n        for (int i = 0; i < candies.length; i++) {\n            if ((candies[i] + extraCandies) >= maxAmount) {\n                greatestCandylBooleans.add(true);\n            } else {\n                greatestCandylBooleans.add(false);\n            }\n        }\n\n        return greatestCandylBooleans;\n    }"
         }
       ]
     },
     {
       "id": "lc1470",
-      "title": "LC1470",
+      "title": "Shuffle the Array",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1470 solution from Java class Lc1470",
+      "summary": "Given an array in the form [x1,...,xn,y1,...,yn], return it shuffled as [x1,y1,x2,y2,...,xn,yn].",
       "methods": [
         {
-          "name": "shuffle",
           "code": "public int[] shuffle(int[] nums, int n) {\n        int[] outputArray = new int[nums.length];\n        int counter = 0;\n\n        for (int i = 0; i < nums.length; i += 2) {\n            outputArray[i] = nums[counter];\n            outputArray[i + 1] = nums[n];\n            counter++;\n            n++;\n        }\n        return outputArray;\n    }"
         }
       ]
     },
     {
       "id": "lc1480",
-      "title": "LC1480",
+      "title": "Running Sum of 1d Array",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1480 solution from Java class Lc1480",
+      "summary": "Given an array, return its running sum where each element is the sum of all previous elements and itself.",
       "methods": [
         {
-          "name": "runningSum",
           "code": "public int[] runningSum(int[] nums) {\n        int[] newArray = new int[nums.length];\n        int sum = 0;\n\n        for (int i = 0; i < nums.length; i++) {\n            sum += nums[i];\n            newArray[i] = sum;\n        }\n\n        return newArray;\n    }"
         }
       ]
     },
     {
       "id": "lc1512",
-      "title": "LC1512",
+      "title": "Number of Good Pairs",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1512 solution from Java class Lc1512",
+      "summary": "Given an integer array, return the number of good pairs with equal values and i < j.",
       "methods": [
         {
-          "name": "numIdenticalPairs",
           "code": "public int numIdenticalPairs(int[] nums) {\n        int goodPairs = 0;\n\n        for (int i = 0; i < nums.length; i++) {\n            for (int j = i + 1; j < nums.length; j++) {\n                if (nums[i] == nums[j]) {\n                    goodPairs++;\n                }\n            }\n        }\n\n        return goodPairs;\n    }"
         }
       ]
     },
     {
       "id": "lc1588",
-      "title": "LC1588",
+      "title": "Sum of All Odd Length Subarrays",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1588 solution from Java class Lc1588",
+      "summary": "Given an array of positive integers, return the sum of all odd-length subarrays.",
       "methods": [
         {
-          "name": "sumOddLengthSubarrays",
           "code": "public int sumOddLengthSubarrays(int[] arr) {\n        int sum = 0;\n        int n = arr.length;\n        if (arr.length == 0) {\n            return sum;\n        }\n\n        for (int i = 0; i < n; i++) {\n            int end = i + 1;\n            int start = n - i;\n            int total = start * end;\n            int odd = total / 2;\n\n            if (total % 2 == 1) {\n                odd++;\n            }\n\n            sum += odd * arr[i];\n        }\n\n        return sum;\n    }"
         }
       ]
     },
     {
       "id": "lc1672",
-      "title": "LC1672",
+      "title": "Richest Customer Wealth",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1672 solution from Java class Lc1672",
+      "summary": "Given account balances for each customer across banks, return the maximum customer wealth.",
       "methods": [
         {
-          "name": "maximumWealth",
           "code": "public int maximumWealth(int[][] accounts) {\n        int wealth = 0;\n        int counter = 0;\n\n        for (int i = 0; i < accounts.length; i++) {\n            for (int j = 0; j < accounts[i].length; j++) {\n                counter += accounts[i][j];\n            }\n            if (counter >= wealth) {\n                wealth = counter;\n            }\n            counter = 0;\n        }\n\n        return wealth;\n    }"
         }
       ]
     },
     {
       "id": "lc1710",
-      "title": "LC1710",
+      "title": "Maximum Units on a Truck",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1710 solution from Java class Lc1710",
+      "summary": "Given box types and a truck size, return the maximum total units that can be loaded onto the truck.",
       "methods": [
         {
-          "name": "maximumUnits",
           "code": "public int maximumUnits(int[][] boxTypes, int truckSize) {\n        int units = 0;\n\n        if (truckSize == 0) {\n            return units;\n        }\n        Arrays.sort(boxTypes, (row1, row2) -> Integer.compare(row2[1], row1[1]));\n\n        for (int i = 0; i < boxTypes.length; i++) {\n\n            if (truckSize - boxTypes[i][0] > 0) {\n                units += boxTypes[i][0] * boxTypes[i][1];\n                truckSize -= boxTypes[i][0];\n            }\n\n            else {\n                while (truckSize != 0 && boxTypes[i][0] != 0) {\n                    truckSize--;\n                    boxTypes[i][0]--;\n                    units += boxTypes[i][1];\n                }\n\n            }\n\n            if (truckSize == 0) {\n                break;\n            }\n        }\n\n        return units;\n    }"
         }
       ]
     },
     {
       "id": "lc1720",
-      "title": "LC1720",
+      "title": "Decode XORed Array",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1720 solution from Java class Lc1720",
+      "summary": "Given an XOR-encoded array and the first value, decode and return the original array.",
       "methods": [
         {
-          "name": "decode",
           "code": "public int[] decode(int[] encoded, int first) {\n        int[] decoded = new int[encoded.length + 1];\n\n        decoded[0] = first;\n\n        for (int i = 1; i < decoded.length; i++) {\n            decoded[i] = encoded[i - 1] ^ decoded[i - 1];\n        }\n\n        return decoded;\n    }"
         }
       ]
     },
     {
       "id": "lc1920",
-      "title": "LC1920",
+      "title": "Build Array from Permutation",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1920 solution from Java class Lc1920",
+      "summary": "Given a zero-based permutation array, build and return the array ans where ans[i] = nums[nums[i]].",
       "methods": [
         {
-          "name": "buildArray",
           "code": "public int[] buildArray(int[] nums) {\n        int[] ans = new int[nums.length];\n\n        for (int i = 0; i < ans.length; i++) {\n            ans[i] = nums[nums[i]];\n        }\n\n        return ans;\n    }"
         }
       ]
     },
     {
       "id": "lc1929",
-      "title": "LC1929",
+      "title": "Concatenation of Array",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1929 solution from Java class Lc1929",
+      "summary": "Given an integer array, return a new array formed by concatenating the array with itself.",
       "methods": [
         {
-          "name": "getConcatenation",
           "code": "public int[] getConcatenation(int[] nums) {\n        int[] ans = new int[nums.length * 2];\n        int counter = 0;\n\n        for (int i = 0; i < ans.length; i++) {\n            if (counter == nums.length) {\n                counter = 0;\n            }\n            ans[i] = nums[counter];\n            counter++;\n\n        }\n\n        return ans;\n    }"
         }
       ]
     },
     {
       "id": "lc1979",
-      "title": "LC1979",
+      "title": "find Greatest Common Divisor of Array",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC1979 solution from Java class Lc1979",
+      "summary": "Given an integer array, return the greatest common divisor of its smallest and largest values.",
       "methods": [
         {
-          "name": "gcd",
           "code": "public int gcd(int a, int b) {\n        while (b != 0) {\n            int temp = b;\n            b = a % b;\n            a = temp;\n        }\n        return a;\n    }"
         },
         {
-          "name": "findGCD",
           "code": "public int findGCD(int[] nums) {\n        int gcd = 0;\n\n        Arrays.sort(nums);\n\n        gcd = gcd(nums[nums.length - 1], nums[0]);\n\n        return gcd;\n    }"
         }
       ]
     },
     {
       "id": "lc2078",
-      "title": "LC2078",
+      "title": "Two Furthest Houses With Different Colors",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC2078 solution from Java class Lc2078",
+      "summary": "Given the colors of houses in a row, return the maximum distance between two houses with different colors.",
       "methods": [
         {
-          "name": "maxDistance",
           "code": "public int maxDistance(int[] colors) {\n        int max = 0;\n\n        for (int i = 0; i < colors.length; i++) {\n            int housePointer = colors.length - 1;\n            int maxDistance = 0;\n\n            while (housePointer != i) {\n                if (colors[i] != colors[housePointer] && housePointer == colors.length) {\n                    max = housePointer - i;\n                    break;\n                } else if (colors[i] != colors[housePointer]) {\n                    maxDistance = housePointer - i;\n\n                    if (maxDistance > max) {\n                        max = maxDistance;\n                    }\n                }\n\n                housePointer--;\n\n            }\n\n            if (max == colors.length - 1) {\n                break;\n            }\n\n        }\n\n        return max;\n    }"
         }
       ]
     },
     {
       "id": "lc2133",
-      "title": "LC2133",
+      "title": "Check if Every Row and Column Contains All Numbers",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC2133 solution from Java class Lc2133",
+      "summary": "Given an n x n matrix, return whether every row and column contains all integers from 1 to n.",
       "methods": [
         {
-          "name": "checkValid",
           "code": "public boolean checkValid(int[][] matrix) {\n\n        int n = matrix.length;\n\n        // Check each row\n        for (int[] row : matrix) {\n            HashSet<Integer> set = new HashSet<>();\n            for (int num : row) {\n                set.add(num);\n            }\n            if (set.size() != n)\n                return false; // Row does not contain all numbers\n        }\n\n        // Check each column\n        for (int col = 0; col < n; col++) {\n            HashSet<Integer> set = new HashSet<>();\n            for (int row = 0; row < n; row++) {\n                set.add(matrix[row][col]);\n            }\n            if (set.size() != n)\n                return false; // Column does not contain all numbers\n        }\n\n        return true; // All rows and columns are valid\n    }"
         }
       ]
     },
     {
       "id": "lc2176",
-      "title": "LC2176",
+      "title": "Count Equal and Divisible Pairs in an Array",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC2176 solution from Java class Lc2176",
+      "summary": "Given an array and an integer k, return the number of equal-value index pairs whose product is divisible by k.",
       "methods": [
         {
-          "name": "countPairs",
           "code": "public int countPairs(int[] nums, int k) {\n        int pairs = 0;\n\n        for (int i = 0; i < nums.length; i++) {\n\n            for (int j = i + 1; j < nums.length; j++) {\n                if (nums[i] == nums[j] && i * j % k == 0) {\n                    pairs++;\n                }\n            }\n        }\n\n        return pairs;\n    }"
         }
       ]
     },
     {
       "id": "lc2239",
-      "title": "LC2239",
+      "title": "Find CLosest Number to Zero",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC2239 solution from Java class Lc2239",
+      "summary": "Given an integer array, return the value closest to zero, preferring the larger value when tied.",
       "methods": [
         {
-          "name": "findClosestNumber",
           "code": "public int findClosestNumber(int[] nums) {\n        int answer = Integer.MAX_VALUE;\n\n        for (int i = 0; i < nums.length; i++) {\n            if (Math.abs(nums[i]) < Math.abs(answer) || (Math.abs(nums[i]) == Math.abs(answer) && nums[i] > answer)) {\n                answer = nums[i];\n            }\n        }\n\n        return answer;\n    }"
         }
       ]
     },
     {
       "id": "lc2678",
-      "title": "LC2678",
+      "title": "Number of Senior Citizens",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC2678 solution from Java class Lc2678",
+      "summary": "Given encoded passenger detail strings, return how many passengers are older than 60.",
       "methods": [
         {
-          "name": "countSeniors",
           "code": "public int countSeniors(String[] details) {\n        int seniors = 0;\n\n        for (int i = 0; i < details.length; i++) {\n            System.out.println(Integer.parseInt(details[i].substring(11, 13)));\n            if (Integer.parseInt(details[i].substring(11, 13)) > 60) {\n                seniors++;\n            }\n        }\n\n        return seniors;\n    }"
         }
       ]
     },
     {
       "id": "lc3074",
-      "title": "LC3074",
+      "title": "Apple Redistribution into Boxes",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC3074 solution from Java class Lc3074",
+      "summary": "Given apple counts and box capacities, return the minimum number of boxes needed to hold all apples.",
       "methods": [
         {
-          "name": "minimumBoxes",
           "code": "public int minimumBoxes(int[] apple, int[] capacity) {\n\n        int totalApples = Arrays.stream(apple).sum();\n        int totalBoxes = 0;\n\n        Arrays.sort(capacity);\n\n        for (int i = capacity.length - 1; i >= 0; i--) {\n            totalApples -= capacity[i];\n            totalBoxes++;\n\n            if (totalApples <= 0) {\n                break;\n            }\n        }\n\n        return totalBoxes;\n    }"
         }
       ]
     },
     {
       "id": "lc3110",
-      "title": "LC3110",
+      "title": "Score of a String",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC3110 solution from Java class Lc3110",
+      "summary": "Given a string, return the sum of absolute differences between adjacent character codes.",
       "methods": [
         {
-          "name": "scoreOfString",
           "code": "public int scoreOfString(String s) {\n        int sum = 0;\n\n        for (int i = 0; i < s.length() - 1; i++) {\n            sum += Math.abs(s.charAt(i) - s.charAt(i + 1));\n        }\n\n        return sum;\n    }"
         }
       ]
     },
     {
       "id": "lc3314",
-      "title": "LC3314",
+      "title": "Construct the Minimum Bitwise Array I",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC3314 solution from Java class Lc3314",
+      "summary": "Given an integer array nums, build the minimum array ans such that ans[i] | (ans[i] + 1) equals nums[i], or use -1 if impossible.",
       "methods": [
         {
-          "name": "minBitwiseArray",
           "code": "public int[] minBitwiseArray(List<Integer> nums) {\n\n        int[] ans = new int[nums.size()];\n\n        for (int i = 0; i < ans.length; i++) {\n            // ans[i] | (ans[i] + 1) == nums[i]\n            ans[i] = -1;\n            int value = nums.get(i);\n            for (int j = 0; j < value; j++) {\n                if ((j | (j + 1)) == value) {\n                    ans[i] = j;\n                    break;\n                }\n\n            }\n\n        }\n\n        return ans;\n    }"
         }
       ]
     },
     {
       "id": "lc3541",
-      "title": "LC3541",
+      "title": "Most Frequent Vowel and Consonants",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC3541 solution from Java class Lc3541",
+      "summary": "Given a lowercase string, return the sum of the highest vowel frequency and the highest consonant frequency.",
       "methods": [
         {
-          "name": "maxFreqSum",
           "code": "public int maxFreqSum(String s) {\n        Map<Character, Integer> vowelMap = new HashMap<>();\n        Map<Character, Integer> consonantsMap = new HashMap<>();\n        int vowel = 0;\n        int consonants = 0;\n\n        for (int i = 0; i < s.length(); i++) {\n            if (\"aeiou\".indexOf(s.charAt(i)) >= 0) {\n                vowelMap.put(s.charAt(i), vowelMap.getOrDefault(s.charAt(i), 0) + 1);\n            } else {\n                consonantsMap.put(s.charAt(i), consonantsMap.getOrDefault(s.charAt(i), 0) + 1);\n            }\n        }\n\n        for (int value : vowelMap.values()) {\n            if (value > vowel) {\n                vowel = value;\n            }\n        }\n\n        for (int value : consonantsMap.values()) {\n            if (value > consonants) {\n                consonants = value;\n            }\n        }\n\n        return vowel + consonants;\n    }"
         }
       ]
     },
     {
       "id": "lc3637",
-      "title": "LC3637",
+      "title": "Trionic Array I",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC3637 solution from Java class Lc3637",
+      "summary": "Given an integer array, return whether it can be split into strictly increasing, then strictly decreasing, then strictly increasing parts.",
       "methods": [
         {
-          "name": "leftAscending",
           "code": "private boolean leftAscending(int[] nums, int p) {\n\n        for (int i = 0; i < p; i++) {\n            if (nums[i] >= nums[i + 1]) {\n                return false;\n            }\n        }\n\n        return true;\n    }"
         },
         {
-          "name": "descending",
           "code": "private boolean descending(int[] nums, int p, int q) {\n\n        for (int i = p; i < q; i++) {\n            if (nums[i] <= nums[i + 1]) {\n                return false;\n            }\n        }\n\n        return true;\n    }"
         },
         {
-          "name": "rightAscending",
           "code": "private boolean rightAscending(int[] nums, int q) {\n\n        for (int i = q; i < nums.length - 1; i++) {\n            if (nums[i] >= nums[i + 1]) {\n                return false;\n            }\n        }\n\n        return true;\n    }"
         },
         {
-          "name": "isTrionic",
           "code": "public boolean isTrionic(int[] nums) {\n        int p = 1;\n        int q = p + 1;\n        boolean satifies = false;\n        // 0 < p < q < n-1\n\n        while (p < q && q < nums.length - 1) {\n\n            // check first\n            if (!leftAscending(nums, p)) {\n                // move p pointer\n                p++;\n                continue;\n            }\n\n            // check middle\n            if (!descending(nums, p, q)) {\n                // move p and q pointer\n                p++;\n                q++;\n                continue;\n            }\n\n            // check last\n\n            if (!rightAscending(nums, q)) {\n                // move q pointer\n                q++;\n                continue;\n            }\n            satifies = true;\n            break;\n        }\n\n        return satifies;\n    }"
         }
       ]
     },
     {
       "id": "lc3713",
-      "title": "LC3713",
+      "title": "Longest Balanced Substring I",
       "difficulty": "Easy",
       "tags": [],
-      "summary": "LC3713 solution from Java class Lc3713",
+      "summary": "Given a string, return the length of the longest substring where all distinct characters appear the same number of times.",
       "methods": [
         {
-          "name": "longestBalanced",
           "code": "public int longestBalanced(String s) {\n\n        int longest = 0, length = 0, distinct = 0, maxFreq = 0;\n\n        if (s.length() == 0) {\n            return longest;\n        } else if (s.length() == 1) {\n            return 1;\n        }\n\n        for (int i = 0; i < s.length(); i++) {\n            int[] count = new int[26];\n            for (int j = i; j < s.length(); j++) {\n\n                if (count[s.charAt(j) - 'a'] == 0) {\n                    distinct++;\n                    count[s.charAt(j) - 'a']++;\n\n                } else {\n                    count[s.charAt(j) - 'a']++;\n\n                }\n                maxFreq = Math.max(maxFreq, count[s.charAt(j) - 'a']);\n                length++;\n                if (length == distinct * maxFreq) {\n                    longest = Math.max(longest, length);\n                }\n            }\n            length = 0;\n            distinct = 0;\n            maxFreq = 0;\n        }\n\n        return longest;\n    }"
         }
       ]
     },
     {
       "id": "lc0007",
-      "title": "LC0007",
+      "title": "Reverse Integer",
       "difficulty": "Medium",
       "tags": [],
-      "summary": "LC0007 solution from Java class Lc0007",
+      "summary": "Given a signed 32-bit integer, return its digits reversed, or 0 if the reversed value overflows.",
       "methods": [
         {
-          "name": "reverse",
           "code": "public int reverse(int x) {\n\n        Queue<Integer> reversed = new LinkedList<>();\n\n        int result = 0;\n        while (x != 0) {\n            int remainder = x % 10;\n\n            x /= 10;\n            reversed.add(remainder);\n        }\n\n        if (reversed.size() > 10) {\n\n            return 0;\n        }\n\n        if (reversed.isEmpty()) {\n            return 0;\n        }\n        int head = reversed.peek();\n\n        while (!reversed.isEmpty()) {\n            result = result * 10 + reversed.poll();\n        }\n\n        int checkHead = result;\n\n        while (Math.abs(checkHead) >= 10) {\n            checkHead /= 10;\n        }\n\n        if ((head != checkHead && head != 0) || result < Integer.MIN_VALUE || result > Integer.MAX_VALUE) {\n            return 0;\n        }\n\n        return result;\n    }"
         }
       ]
     },
     {
       "id": "lc1382",
-      "title": "LC1382",
+      "title": "Balance a Binary Search Tree",
       "difficulty": "Medium",
       "tags": [],
-      "summary": "LC1382 solution from Java class Lc1382",
+      "summary": "Given the root of a binary search tree, return a balanced binary search tree containing the same values.",
       "methods": [
         {
-          "name": "inorder",
           "code": "public void inorder(TreeNode root, List<Integer> array) {\n        if (root == null)\n            return;\n        inorder(root.left, array);\n        array.add(root.val);\n        inorder(root.right, array);\n    }"
         },
         {
-          "name": "createSortedArray",
           "code": "public List<Integer> createSortedArray(TreeNode root) {\n        List<Integer> result = new ArrayList<>();\n        inorder(root, result);\n\n        return result;\n    }"
         },
         {
-          "name": "insert",
           "code": "public TreeNode insert(int[] sorted, int left, int right) {\n        if (left > right)\n            return null;\n\n        int mid = left + (right - left) / 2;\n\n        TreeNode root = new TreeNode(sorted[mid]);\n\n        root.left = insert(sorted, left, mid - 1);\n        root.right = insert(sorted, mid + 1, right);\n\n        return root;\n    }"
         },
         {
-          "name": "buildBST",
           "code": "public TreeNode buildBST(int[] arr) {\n        return insert(arr, 0, arr.length - 1);\n    }"
         },
         {
-          "name": "balanceBST",
           "code": "public TreeNode balanceBST(TreeNode root) {\n        TreeNode balanced;\n        List<Integer> sorted = new ArrayList<>();\n\n        // perform inorder traversal to create sorted array\n        sorted = createSortedArray(root);\n        int[] sortedArray = new int[sorted.size()];\n\n        for (int i = 0; i < sorted.size(); i++) {\n            sortedArray[i] = sorted.get(i);\n        }\n        // reconstruct balanced binary search tree\n        balanced = buildBST(sortedArray);\n        return balanced;\n    }"
         }
       ]
     },
     {
       "id": "lc3719",
-      "title": "LC3719",
+      "title": "Longest Balanced Subarray I",
       "difficulty": "Medium",
       "tags": [],
-      "summary": "LC3719 solution from Java class Lc3719",
+      "summary": "Given an integer array, return the length of the longest subarray with the same number of distinct even and distinct odd values.",
       "methods": [
         {
-          "name": "longestBalanced",
           "code": "public int longestBalanced(int[] nums) {\n        Set<Integer> evenNumbers = new HashSet<>();\n        Set<Integer> oddNumbers = new HashSet<>();\n        int longest = 0, even = 0, odd = 0, length = 0;\n\n        if (nums.length == 1) {\n            return longest;\n        }\n        // x % 2 = 0 -> even\n\n        for (int i = 0; i < nums.length; i++) {\n\n            for (int j = i; j < nums.length; j++) {\n                if (nums[j] % 2 == 0 && !evenNumbers.contains(nums[j])) {\n                    even++;\n                    evenNumbers.add(nums[j]);\n                } else if (nums[j] % 2 == 1 && !oddNumbers.contains(nums[j])) {\n                    odd++;\n                    oddNumbers.add(nums[j]);\n                }\n                length++;\n\n                if (even == odd) {\n                    longest = Math.max(longest, length);\n                }\n            }\n\n            length = 0;\n            even = 0;\n            odd = 0;\n            evenNumbers.clear();\n            oddNumbers.clear();\n        }\n        return longest;\n    }"
         }
       ]
