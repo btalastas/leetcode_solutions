@@ -1,6 +1,8 @@
 # Maven
 leetcode/target/
 
+# React
+frontend/node_modules
 
 # IDE
 .vscode
