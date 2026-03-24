@@ -469,6 +469,18 @@
       ]
     },
     {
+      "id": "lc3567",
+      "title": "Minimum Absolute Difference in Sliding Submatrix",
+      "difficulty": "Medium",
+      "tags": [],
+      "summary": "Given an integer matrix and a window size k, return the minimum absolute difference between distinct values for every k x k submatrix.",
+      "methods": [
+        {
+          "code": "public int[][] minAbsDiff(int[][] grid, int k) {\n\n        int rows = grid.length;\n        int cols = grid[0].length;\n        int[][] ans = new int[rows - k + 1][cols - k + 1];\n\n        for (int r = 0; r <= rows - k; r++) {\n            for (int c = 0; c <= cols - k; c++) {\n                int[] subMatrix = new int[k * k];\n                int index = 0;\n                for (int i = r; i < r + k; i++) {\n                    for (int j = c; j < c + k; j++) {\n                        subMatrix[index++] = grid[i][j];\n                    }\n                }\n                Arrays.sort(subMatrix);\n                int min = Integer.MAX_VALUE;\n\n                for (int i = 0; i < subMatrix.length - 1; i++) {\n                    if (subMatrix[i] == subMatrix[i + 1]) {\n                        continue;\n                    }\n                    min = Math.min(min, subMatrix[i + 1] - subMatrix[i]);\n                }\n                if (min == Integer.MAX_VALUE) {\n                    min = 0;\n                }\n                ans[r][c] = min;\n            }\n        }\n\n        return ans;\n    }"
+        }
+      ]
+    },
+    {
       "id": "lc3637",
       "title": "Trionic Array I",
       "difficulty": "Easy",
