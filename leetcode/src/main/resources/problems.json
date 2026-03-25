@@ -469,6 +469,18 @@
       ]
     },
     {
+      "id": "lc3546",
+      "title": "Equal Sum Grid Partition I",
+      "difficulty": "Medium",
+      "tags": [],
+      "summary": "Given a grid of positive integers, return whether a single horizontal or vertical cut can split it into two non-empty parts with equal sums.",
+      "methods": [
+        {
+          "code": "public boolean canPartitionGrid(int[][] grid) {\n        int rows = grid.length;\n        int cols = grid[0].length;\n        long totalSum = 0;\n\n        // find total sum\n        for (int i = 0; i < rows; i++) {\n            for (int j = 0; j < cols; j++) {\n                totalSum += grid[i][j];\n            }\n        }\n\n        // vertical cut test\n        // cut through the grid and compare the sums of the left and right half\n        // if partitions have the same sum return true, otherwise increment index of cut\n        long prefixSum = 0;\n        for (int i = 0; i < cols; i++) {\n\n            for (int j = 0; j < rows; j++) {\n                prefixSum += grid[j][i];\n            }\n\n            if (prefixSum == totalSum - prefixSum) {\n                return true;\n            }\n        }\n\n        // horizontal cut test\n        // cut through the grid and compare the sums of the top and bottom half\n        // if partitions have the same sum return true, otherwise increment index of the\n        // cut\n        prefixSum = 0;\n        for (int i = 0; i < rows; i++) {\n\n            for (int j = 0; j < cols; j++) {\n                prefixSum += grid[i][j];\n            }\n\n            if (prefixSum == totalSum - prefixSum) {\n                return true;\n            }\n        }\n\n        return false;\n    }"
+        }
+      ]
+    },
+    {
       "id": "lc3567",
       "title": "Minimum Absolute Difference in Sliding Submatrix",
       "difficulty": "Medium",
